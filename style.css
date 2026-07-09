@@ -1483,3 +1483,65 @@ body {
         color: #e0e0e0;
     }
 }
+/* ============================================================
+   📱 PERBAIKAN UNTUK KEYBOARD HP
+   ============================================================ */
+
+/* Efek highlight saat input difokus */
+.batch-item:focus-within {
+    border-color: #2c7da0;
+    box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.15);
+    transition: all 0.3s ease;
+}
+
+/* Input yang sedang difokus */
+.input-jumlah-batch:focus,
+.input-harga-batch:focus,
+.input-dp-batch:focus,
+.form-control:focus {
+    background-color: #f0f8ff !important;
+    border-color: #2c7da0 !important;
+    box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.2) !important;
+}
+
+/* Select2 yang sedang aktif */
+.select2-container--open {
+    z-index: 9999 !important;
+}
+
+/* Scroll smooth untuk semua elemen */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Padding bottom untuk keyboard di HP */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 80px;
+    }
+    
+    /* Tambahan space di bawah form */
+    .batch-actions {
+        margin-bottom: 30px;
+    }
+    
+    /* Card body lebih ringan */
+    .card-body {
+        padding-bottom: 30px;
+    }
+}
+
+/* Untuk iOS agar tidak zoom otomatis */
+input, select, textarea {
+    font-size: 16px !important;
+}
+
+/* Animasi highlight */
+@keyframes highlightPulse {
+    0% { background-color: #e8f4fd; }
+    100% { background-color: transparent; }
+}
+
+.batch-item.highlight {
+    animation: highlightPulse 0.8s ease;
+}
