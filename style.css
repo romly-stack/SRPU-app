@@ -1,106 +1,207 @@
 /* ============================================================
-   RPU App - Style Sheet
+   🐟 RPU APP - STYLE SHEET
    PT Rafasya Putra Ustanto
+   ============================================================
+   VERSION: 2.0
+   LAST UPDATE: 2026-07-09
    ============================================================ */
 
-* {
+/* ============================================================
+   SECTION 1: RESET & BASE
+   ============================================================ */
+
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
-    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 20px;
-    min-height: 100vh;
+:root {
+    /* ===== COLOR PALETTE ===== */
+    --primary: #2c7da0;
+    --primary-dark: #1f5068;
+    --primary-light: #61a5c2;
+    --primary-gradient: linear-gradient(135deg, #2c7da0 0%, #1f5068 100%);
+    
+    --success: #28a745;
+    --success-dark: #1e7e34;
+    --success-gradient: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    
+    --danger: #dc3545;
+    --danger-dark: #c82333;
+    --danger-gradient: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    
+    --warning: #f4a261;
+    --warning-dark: #e76f51;
+    
+    --bg-light: #f5f7fa;
+    --bg-dark: #1a1a2e;
+    --bg-card: #ffffff;
+    --bg-card-dark: #16213e;
+    
+    --text-primary: #1f5068;
+    --text-secondary: #666666;
+    --text-light: #ffffff;
+    --text-dark: #1a1a2e;
+    
+    --border-light: #e0e0e0;
+    --border-dark: #2a2a4a;
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 8px 30px rgba(44, 125, 160, 0.3);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    
+    --font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
 }
 
-/* ===== COMPANY HEADER ===== */
+/* ============================================================
+   SECTION 2: BODY & LAYOUT
+   ============================================================ */
+
+body {
+    background: linear-gradient(135deg, var(--bg-light) 0%, #e4e8ec 100%);
+    font-family: var(--font-family);
+    padding: var(--spacing-lg);
+    min-height: 100vh;
+    color: var(--text-dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ============================================================
+   SECTION 3: COMPANY HEADER
+   ============================================================ */
+
 .company-header {
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     padding: 25px 30px;
     text-align: center;
-    border-bottom: 4px solid #2c7da0;
+    border-bottom: 4px solid var(--primary);
     margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-md);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 25px;
     flex-wrap: wrap;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
 }
 
 .company-logo {
     width: 85px;
     height: 85px;
     object-fit: contain;
-    transition: transform 0.3s ease;
+    transition: var(--transition);
+    border-radius: var(--radius-sm);
 }
 
 .company-logo:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) rotate(-2deg);
 }
 
 .company-text h1 {
-    color: #1f5068;
+    color: var(--text-primary);
     font-size: 28px;
     margin: 0;
     font-weight: 700;
     letter-spacing: 1px;
 }
 
+.company-text h1 i {
+    color: var(--primary);
+}
+
 .company-text p {
-    color: #666;
-    margin: 8px 0 0;
+    color: var(--text-secondary);
+    margin: var(--spacing-sm) 0 0;
     font-size: 14px;
 }
 
-/* ===== CONNECTION STATUS ===== */
+.company-text p i {
+    color: var(--primary);
+    margin-right: 6px;
+}
+
+/* ============================================================
+   SECTION 4: CONNECTION STATUS
+   ============================================================ */
+
 .connection-status {
     background: #d4edda;
-    border-left: 5px solid #28a745;
+    border-left: 5px solid var(--success);
     padding: 12px 20px;
     margin-bottom: 25px;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     font-size: 14px;
     font-weight: 500;
     display: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-sm);
+    animation: slideDown 0.4s ease;
 }
 
 .connection-status.error {
     background: #f8d7da;
-    border-left-color: #dc3545;
+    border-left-color: var(--danger);
 }
 
 .connection-status.success {
     background: #d4edda;
-    border-left-color: #28a745;
+    border-left-color: var(--success);
 }
 
-/* ===== MAIN CONTAINER ===== */
-.main-container {
-    max-width: 1400px;
-    margin: 0 auto;
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* ===== NAV TABS ===== */
+/* ============================================================
+   SECTION 5: NAVIGATION TABS
+   ============================================================ */
+
 .nav-tabs {
     border: none;
     gap: 10px;
     margin-bottom: 25px;
+    flex-wrap: wrap;
 }
 
 .nav-tabs .nav-link {
     border: none;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 12px 28px;
     font-weight: 600;
     color: #555;
     background: #f0f2f5;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    font-size: 14px;
 }
 
 .nav-tabs .nav-link:hover {
@@ -109,87 +210,117 @@ body {
 }
 
 .nav-tabs .nav-link.active {
-    background: linear-gradient(135deg, #2c7da0 0%, #1f5068 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(44,125,160,0.3);
+    background: var(--primary-gradient);
+    color: var(--text-light);
+    box-shadow: var(--shadow-xl);
 }
 
-/* ===== CARDS ===== */
+.nav-tabs .nav-link i {
+    margin-right: 8px;
+}
+
+/* ============================================================
+   SECTION 6: CARDS
+   ============================================================ */
+
 .card {
     border: none;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
     margin-bottom: 25px;
     overflow: hidden;
-    transition: transform 0.2s ease;
+    transition: var(--transition);
+    background: var(--bg-card);
 }
 
 .card:hover {
     transform: translateY(-3px);
+    box-shadow: var(--shadow-xl);
 }
 
 .card-header {
-    background: linear-gradient(135deg, #2c7da0 0%, #1f5068 100%);
-    color: white;
-    padding: 16px 24px;
+    background: var(--primary-gradient);
+    color: var(--text-light);
+    padding: var(--spacing-md) var(--spacing-lg);
     font-weight: 600;
     font-size: 18px;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
 }
 
 .card-header .badge-batch {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     padding: 5px 15px;
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     font-size: 14px;
     font-weight: 400;
-    margin-left: 15px;
 }
 
 .card-body {
     padding: 28px;
 }
 
-/* ===== FORM ELEMENTS ===== */
+/* ============================================================
+   SECTION 7: FORM ELEMENTS
+   ============================================================ */
+
 .form-label {
     font-weight: 600;
     color: #333;
-    margin-bottom: 8px;
+    margin-bottom: var(--spacing-sm);
     font-size: 14px;
+    display: block;
 }
 
 .form-label i {
     margin-right: 6px;
-    color: #2c7da0;
+    color: var(--primary);
 }
 
 .form-control,
 .form-select {
-    border-radius: 10px;
-    border: 1px solid #e0e0e0;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border-light);
     padding: 10px 14px;
     font-size: 14px;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    width: 100%;
+    background: #ffffff;
+    color: var(--text-dark);
 }
 
 .form-control:focus,
 .form-select:focus {
-    border-color: #2c7da0;
-    box-shadow: 0 0 0 0.2rem rgba(44,125,160,0.25);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(44, 125, 160, 0.15);
+    outline: none;
 }
 
-/* ===== TABEL INPUT IKAN (DIPERBAIKI UNTUK HP) ===== */
+.form-control::placeholder {
+    color: #aaa;
+}
+
+.form-control:disabled,
+.form-select:disabled {
+    background: #f0f2f5;
+    cursor: not-allowed;
+}
+
+/* ============================================================
+   SECTION 8: TABLES (INPUT IKAN)
+   ============================================================ */
+
 .table-container {
     background: #f8f9fa;
-    border-radius: 12px;
-    padding: 5px;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xs);
     margin: 15px 0;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-}
-
-.table-container .table-responsive {
-    overflow-x: auto;
 }
 
 .table-ikan {
@@ -197,9 +328,10 @@ body {
     margin: 0;
     border-collapse: collapse;
     font-size: 13px;
+    min-width: 400px;
 }
 
-.table-ikan th {
+.table-ikan thead th {
     background: #e9ecef;
     padding: 8px 6px;
     font-size: 12px;
@@ -208,21 +340,48 @@ body {
     border-bottom: 2px solid #000000;
     text-align: center;
     white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
-.table-ikan td {
+.table-ikan tbody td {
     padding: 4px 4px;
     vertical-align: middle;
     border-bottom: 1px solid #e9ecef;
-    background: white;
+    background: #ffffff;
 }
 
 /* Kolom proporsional */
-.table-ikan th:nth-child(1) { width: 30%; }
-.table-ikan th:nth-child(2) { width: 18%; }
-.table-ikan th:nth-child(3) { width: 20%; }
-.table-ikan th:nth-child(4) { width: 22%; }
-.table-ikan th:nth-child(5) { width: 10%; }
+.table-ikan th:nth-child(1),
+.table-ikan td:nth-child(1) {
+    width: 30%;
+    min-width: 80px;
+}
+
+.table-ikan th:nth-child(2),
+.table-ikan td:nth-child(2) {
+    width: 18%;
+    min-width: 50px;
+}
+
+.table-ikan th:nth-child(3),
+.table-ikan td:nth-child(3) {
+    width: 20%;
+    min-width: 60px;
+}
+
+.table-ikan th:nth-child(4),
+.table-ikan td:nth-child(4) {
+    width: 22%;
+    min-width: 70px;
+}
+
+.table-ikan th:nth-child(5),
+.table-ikan td:nth-child(5) {
+    width: 10%;
+    min-width: 35px;
+}
 
 /* Input dalam tabel */
 .table-ikan .form-select,
@@ -232,6 +391,7 @@ body {
     border-radius: 6px;
     min-height: 32px;
     height: 32px;
+    border-width: 1px;
 }
 
 .table-ikan .form-select {
@@ -245,96 +405,159 @@ body {
     text-align: right;
     font-weight: 500;
     width: 100%;
-    min-width: 50px;
+    min-width: 40px;
 }
 
 .table-ikan .input-subtotal-batch {
     font-weight: 600;
-    color: #2c7da0;
+    color: var(--primary);
     font-size: 12px;
     text-align: right;
+    background: #e9ecef !important;
 }
 
-/* Tombol hapus */
+/* Tombol aksi di tabel */
 .table-ikan .btn-danger {
     padding: 2px 6px;
     font-size: 12px;
     min-width: 28px;
     min-height: 28px;
     border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .table-ikan .btn-danger i {
     font-size: 12px;
 }
 
-/* ===== BUTTONS ===== */
-.btn-primary {
-    background: linear-gradient(135deg, #2c7da0 0%, #1f5068 100%);
+/* ============================================================
+   SECTION 9: BUTTONS
+   ============================================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
     border: none;
-    padding: 10px 28px;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 28px;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: var(--text-light);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(44,125,160,0.4);
+    box-shadow: var(--shadow-xl);
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
-    border: none;
-    padding: 10px 28px;
-    border-radius: 10px;
-    font-weight: 600;
+    background: var(--success-gradient);
+    color: var(--text-light);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
 }
 
 .btn-danger {
-    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-    border: none;
-    border-radius: 8px;
+    background: var(--danger-gradient);
+    color: var(--text-light);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning) 0%, var(--warning-dark) 100%);
+    color: var(--text-dark);
 }
 
 .btn-add-row {
-    background: linear-gradient(135deg, #2c7da0 0%, #1f5068 100%);
-    color: white;
+    background: var(--primary-gradient);
+    color: var(--text-light);
     border: none;
     padding: 8px 16px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-size: 13px;
     font-weight: 500;
     margin-top: 10px;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
 }
 
 .btn-add-row:hover {
     transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(44,125,160,0.3);
+    box-shadow: var(--shadow-xl);
 }
 
 .btn-add-batch {
-    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
-    color: white;
+    background: var(--success-gradient);
+    color: var(--text-light);
     border: none;
     padding: 8px 20px;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     font-size: 13px;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
 }
 
 .btn-add-batch:hover {
     transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(40,167,69,0.3);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
 }
 
-/* ===== TOTAL BOX ===== */
+.btn-lg {
+    padding: 12px 36px;
+    font-size: 16px;
+}
+
+.btn-sm {
+    padding: 4px 12px;
+    font-size: 12px;
+    min-height: 30px;
+}
+
+/* ============================================================
+   SECTION 10: TOTAL BOX
+   ============================================================ */
+
 .total-box {
     background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
     padding: 18px 25px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     text-align: right;
     margin-top: 20px;
 }
@@ -345,66 +568,119 @@ body {
     font-weight: 600;
 }
 
+.total-box h4 i {
+    color: var(--primary);
+}
+
 .total-box span {
-    color: #2c7da0;
+    color: var(--primary);
     font-size: 28px;
     font-weight: 800;
 }
 
-/* ===== FILTER SECTION ===== */
+.total-box small {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* ============================================================
+   SECTION 11: FILTER SECTION
+   ============================================================ */
+
 .filter-section {
     background: #f8f9fa;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     margin-bottom: 25px;
 }
 
-/* ===== REKAP TABLES ===== */
+.filter-section .row {
+    --bs-gutter-y: 15px;
+}
+
+.filter-section label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.filter-section label i {
+    margin-right: 4px;
+    color: var(--primary);
+}
+
+/* ============================================================
+   SECTION 12: REKAP TABLES
+   ============================================================ */
+
 .rekap-table-container {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .rekap-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 13px;
+    min-width: 600px;
 }
 
-.rekap-table th {
-    background: linear-gradient(135deg, #2c7da0, #1f5068);
-    color: white;
+.rekap-table thead th {
+    background: var(--primary-gradient);
+    color: var(--text-light);
     font-weight: 600;
     padding: 12px 8px;
     text-align: center;
-    border: 1px solid #1f5068;
+    border: 1px solid var(--primary-dark);
+    white-space: nowrap;
 }
 
-.rekap-table td {
+.rekap-table tbody td {
     padding: 10px 8px;
     border: 1px solid #dee2e6;
     vertical-align: middle;
 }
 
-.rekap-table tr:hover {
-    background-color: #f5f5f5;
+.rekap-table tbody tr:hover {
+    background-color: rgba(44, 125, 160, 0.05);
 }
 
-.grand-total-row {
+.rekap-table .grand-total-row {
     background-color: #e9ecef;
     font-weight: bold;
 }
 
-/* ===== BONGKARAN ===== */
+.rekap-table .grand-total-row td {
+    border-top: 2px solid var(--primary);
+}
+
+/* ============================================================
+   SECTION 13: BONGKARAN
+   ============================================================ */
+
 .bongkaran-header {
-    background: #2c7da0;
-    color: white;
+    background: var(--primary);
+    color: var(--text-light);
     padding: 12px 15px;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.bongkaran-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.bongkaran-header h5 i {
+    margin-right: 8px;
 }
 
 .rekap-ikan-table {
@@ -420,8 +696,8 @@ body {
 }
 
 .rekap-ikan-table th {
-    background: #2c7da0;
-    color: white;
+    background: var(--primary);
+    color: var(--text-light);
     font-weight: bold;
     text-align: center;
 }
@@ -435,30 +711,39 @@ body {
     background: #d1ecf1;
     color: #0c5460;
     padding: 4px 10px;
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     font-size: 11px;
     font-weight: 600;
     display: inline-block;
 }
 
-/* ===== BATCH ITEMS ===== */
+/* ============================================================
+   SECTION 14: BATCH ITEMS
+   ============================================================ */
+
 .batch-item {
     background: #f8f9fa;
     border: 1px solid #e9ecef;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     padding: 15px;
     margin-bottom: 15px;
     position: relative;
+    transition: var(--transition);
+}
+
+.batch-item:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.15);
 }
 
 .batch-item .batch-number {
     position: absolute;
     top: -10px;
     left: 15px;
-    background: #2c7da0;
-    color: white;
+    background: var(--primary);
+    color: var(--text-light);
     padding: 2px 12px;
-    border-radius: 15px;
+    border-radius: var(--radius-xl);
     font-size: 12px;
     font-weight: 600;
 }
@@ -469,50 +754,98 @@ body {
     right: 10px;
 }
 
-/* ===== SELECT2 ===== */
+.batch-item .form-label {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* ============================================================
+   SECTION 15: SELECT2
+   ============================================================ */
+
 .select2-container--default .select2-selection--single {
     height: 42px !important;
-    border-radius: 10px !important;
+    border-radius: var(--radius-sm) !important;
+    border: 2px solid var(--border-light) !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 42px !important;
+    padding-left: 12px !important;
+    font-size: 14px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 40px !important;
 }
 
 .select2-dropdown {
     z-index: 9999 !important;
+    border-radius: var(--radius-sm) !important;
+    border: 2px solid var(--primary) !important;
 }
 
-.select2 {
-    width: 100% !important;
+.select2-search__field {
+    border-radius: var(--radius-sm) !important;
+    border: 1px solid var(--border-light) !important;
+    padding: 6px 10px !important;
 }
 
-/* ===== MASTER DATA ===== */
+.select2-container--open .select2-dropdown--below {
+    margin-top: 2px;
+}
+
+/* ============================================================
+   SECTION 16: MASTER DATA
+   ============================================================ */
+
 .master-section {
     display: none;
+}
+
+.master-section.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
 }
 
 .search-box-container {
     background: white;
     padding: 12px 15px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    border: 1px solid #e0e0e0;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
 }
 
-.sticky-top {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background-color: #e9ecef;
+.master-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0f0f0;
 }
 
-/* ===== BATCH ACTIONS ===== */
+.master-item:last-child {
+    border-bottom: none;
+}
+
+.master-item .item-name {
+    font-weight: 500;
+}
+
+.master-item .item-price {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ============================================================
+   SECTION 17: BATCH ACTIONS
+   ============================================================ */
+
 .batch-actions {
     background: #e9ecef;
     padding: 15px 20px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     margin-top: 20px;
     display: flex;
     gap: 10px;
@@ -529,28 +862,134 @@ body {
 }
 
 .batch-summary .summary-item {
-    background: white;
+    background: var(--bg-card);
     padding: 5px 15px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-size: 13px;
+    box-shadow: var(--shadow-sm);
 }
 
 .batch-summary .summary-item strong {
-    color: #2c7da0;
+    color: var(--primary);
 }
 
-/* ===== UTILITY ===== */
-.text-end { text-align: right; }
-.text-center { text-align: center; }
-.fw-bold { font-weight: 600; }
+/* ============================================================
+   SECTION 18: UTILITY CLASSES
+   ============================================================ */
+
+.text-end {
+    text-align: right !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-start {
+    text-align: left !important;
+}
+
+.fw-bold {
+    font-weight: 600 !important;
+}
+
+.fw-normal {
+    font-weight: 400 !important;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.text-success {
+    color: var(--success) !important;
+}
+
+.text-danger {
+    color: var(--danger) !important;
+}
+
+.text-muted {
+    color: var(--text-secondary) !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.gap-2 {
+    gap: 8px !important;
+}
+
+.gap-3 {
+    gap: 16px !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+.justify-content-center {
+    justify-content: center !important;
+}
+
+.flex-wrap {
+    flex-wrap: wrap !important;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.mt-1 {
+    margin-top: 4px !important;
+}
+
+.mt-2 {
+    margin-top: 8px !important;
+}
+
+.mt-3 {
+    margin-top: 16px !important;
+}
+
+.mb-1 {
+    margin-bottom: 4px !important;
+}
+
+.mb-2 {
+    margin-bottom: 8px !important;
+}
+
+.mb-3 {
+    margin-bottom: 16px !important;
+}
+
+.p-2 {
+    padding: 8px !important;
+}
+
+.p-3 {
+    padding: 16px !important;
+}
+
 .info-default {
     background: #e3f2fd;
     padding: 5px 10px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-size: 11px;
     margin-top: 5px;
     color: #0c5460;
 }
+
 .auto-fill-hint {
     background: #e8f5e9;
     border-left: 3px solid #4caf50;
@@ -560,351 +999,106 @@ body {
     margin-top: 4px;
     color: #2e7d32;
 }
+
 .debug-info {
     font-size: 11px;
     background: #f8f9fa;
     padding: 8px 12px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     margin-top: 10px;
     color: #666;
+    word-break: break-all;
 }
 
-/* ===== LOADING ===== */
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #e9ecef;
+}
+
+/* ============================================================
+   SECTION 19: LOADING SPINNER
+   ============================================================ */
+
 .loading-spinner {
     display: inline-block;
     width: 16px;
     height: 16px;
     border: 2px solid #f3f3f3;
-    border-top: 2px solid #2c7da0;
+    border-top: 2px solid var(--primary);
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 0.8s linear infinite;
     margin-right: 8px;
 }
 
+.loading-spinner-lg {
+    width: 32px;
+    height: 32px;
+    border-width: 3px;
+}
+
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ============================================================
-   RESPONSIVE UNTUK HP (POTRAIT) - DIPERBAIKI
+   SECTION 20: RESPONSIVE - TABLET (769px - 1024px)
    ============================================================ */
 
-@media (max-width: 768px) {
-    body { 
-        padding: 10px; 
-    }
-    
-    .company-header {
-        flex-direction: column;
-        gap: 15px;
-        padding: 20px;
-    }
-    
-    .company-logo {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .company-text h1 {
-        font-size: 20px;
-    }
-    
-    .card-body { 
-        padding: 16px; 
-    }
-    
-    .nav-tabs .nav-link {
-        padding: 8px 16px;
-        font-size: 13px;
-    }
-    
-    .batch-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .batch-summary {
-        justify-content: center;
-    }
-    
-    /* ===== PERBAIKAN TABEL INPUT DI HP ===== */
-    .table-ikan {
-        font-size: 12px;
-    }
-    
-    .table-ikan th {
-        font-size: 10px;
-        padding: 6px 4px;
-        white-space: nowrap;
-    }
-    
-    .table-ikan td {
-        padding: 3px 3px;
-    }
-    
-    .table-ikan .form-select,
-    .table-ikan .form-control {
-        font-size: 12px;
-        padding: 2px 4px;
-        min-height: 28px;
-        height: 28px;
-        border-radius: 4px;
-    }
-    
-    .table-ikan .form-select {
-        padding-right: 16px;
-        background-size: 10px;
-    }
-    
-    .table-ikan th:nth-child(1) { width: 30%; }
-    .table-ikan th:nth-child(2) { width: 18%; }
-    .table-ikan th:nth-child(3) { width: 20%; }
-    .table-ikan th:nth-child(4) { width: 22%; }
-    .table-ikan th:nth-child(5) { width: 10%; }
-    
-    .table-ikan .btn-danger {
-        padding: 2px 6px;
-        font-size: 11px;
-        min-width: 24px;
-        min-height: 24px;
-    }
-    
-    .table-ikan .btn-danger i {
-        font-size: 12px;
-    }
-    
-    .table-ikan .input-subtotal-batch {
-        font-size: 11px;
-    }
-    
-    /* ===== PERBAIKAN BATCH ITEM ===== */
-    .batch-item {
-        padding: 10px !important;
-        margin-bottom: 10px !important;
-    }
-    
-    .batch-item .batch-number {
-        font-size: 10px !important;
-        padding: 1px 10px !important;
-        top: -8px !important;
-        left: 10px !important;
-    }
-    
-    .batch-item .btn-remove-batch {
-        top: 6px !important;
-        right: 6px !important;
-        padding: 2px 8px !important;
-        font-size: 12px !important;
-    }
-    
-    .batch-item .form-label {
-        font-size: 11px !important;
-        margin-bottom: 2px !important;
-    }
-    
-    .batch-item .form-control,
-    .batch-item .form-select {
-        font-size: 12px !important;
-        padding: 6px 8px !important;
-        min-height: 32px !important;
-    }
-    
-    .btn-add-row {
-        font-size: 12px !important;
-        padding: 6px 12px !important;
-    }
-    
-    .btn-add-row i {
-        font-size: 12px !important;
-    }
-    
-    .batch-item .text-end strong {
-        font-size: 13px !important;
-    }
-    
-    .batch-item .text-end strong span {
-        font-size: 15px !important;
-    }
-    
-    /* ===== PERBAIKAN SELECT2 DI HP ===== */
-    .select2-container--default .select2-selection--single {
-        height: 28px !important;
-        min-height: 28px !important;
-        border-radius: 4px !important;
-    }
-    
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 28px !important;
-        font-size: 12px !important;
-        padding-left: 6px !important;
-    }
-    
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 26px !important;
-    }
-    
-    .select2-container--default .select2-selection--single .select2-selection__arrow b {
-        border-width: 4px 4px 0 !important;
-        margin-top: -2px !important;
-    }
-    
-    .select2-dropdown {
-        font-size: 12px !important;
-    }
-    
-    .select2-search__field {
-        font-size: 12px !important;
-        padding: 4px 8px !important;
-    }
-    
-    /* ===== PERBAIKAN FORM DI HP ===== */
-    .form-control,
-    .form-select {
-        font-size: 16px !important;
-        padding: 10px 12px !important;
-        min-height: 44px !important;
-    }
-    
-    .btn {
-        padding: 10px 20px !important;
-        font-size: 14px !important;
-        min-height: 44px !important;
-        min-width: 44px !important;
-    }
-    
-    .row.g-3 {
-        --bs-gutter-y: 12px !important;
-    }
-}
-
-/* ===== HP SANGAT KECIL ( < 400px ) ===== */
-@media (max-width: 400px) {
-    .table-ikan {
-        font-size: 11px;
-    }
-    
-    .table-ikan th {
-        font-size: 9px;
-        padding: 4px 2px;
-    }
-    
-    .table-ikan td {
-        padding: 2px 2px;
-    }
-    
-    .table-ikan .form-select,
-    .table-ikan .form-control {
-        font-size: 11px;
-        padding: 2px 3px;
-        min-height: 24px;
-        height: 24px;
-    }
-    
-    .table-ikan .form-select {
-        padding-right: 12px;
-    }
-    
-    .table-ikan th:nth-child(1) { width: 28%; }
-    .table-ikan th:nth-child(2) { width: 16%; }
-    .table-ikan th:nth-child(3) { width: 18%; }
-    .table-ikan th:nth-child(4) { width: 20%; }
-    .table-ikan th:nth-child(5) { width: 8%; }
-    
-    .table-ikan .input-subtotal-batch {
-        font-size: 10px;
-    }
-}
-
-/* ===== PRINT ===== */
-@media print {
-    .no-print, .btn, .filter-section, .company-header, .connection-status, .nav-tabs {
-        display: none !important;
-    }
-    body {
-        padding: 0;
-        margin: 0;
-        background: white;
-    }
-    .card {
-        box-shadow: none !important;
-        transform: none !important;
-    }
-    .card-header {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-}
-/* ============================================================
-   RESPONSIVE DESIGN - HP, TABLET, PC
-   ============================================================ */
-
-/* ===== DEFAULT (DESKTOP/PC) ===== */
-body {
-    font-size: 16px;
-    padding: 20px;
-}
-
-.table-ikan {
-    font-size: 14px;
-}
-
-.table-ikan th {
-    font-size: 13px;
-    padding: 10px 12px;
-}
-
-.table-ikan td {
-    padding: 8px 10px;
-}
-
-.table-ikan .form-select,
-.table-ikan .form-control {
-    font-size: 14px;
-    padding: 6px 10px;
-    min-height: 38px;
-    height: 38px;
-}
-
-/* ===== TABLET (LANDSCAPE & PORTRAIT) ===== */
 @media (min-width: 769px) and (max-width: 1024px) {
     body {
         padding: 15px;
         font-size: 15px;
     }
-    
+
     .company-header {
         padding: 20px 25px;
         gap: 20px;
     }
-    
+
     .company-logo {
         width: 70px;
         height: 70px;
     }
-    
+
     .company-text h1 {
         font-size: 24px;
     }
-    
+
     .card-body {
         padding: 20px;
     }
-    
-    /* Tabel input di tablet */
+
     .table-ikan {
         font-size: 13px;
     }
-    
-    .table-ikan th {
+
+    .table-ikan thead th {
         font-size: 12px;
         padding: 8px 8px;
     }
-    
-    .table-ikan td {
+
+    .table-ikan tbody td {
         padding: 6px 6px;
     }
-    
+
     .table-ikan .form-select,
     .table-ikan .form-control {
         font-size: 13px;
@@ -912,75 +1106,101 @@ body {
         min-height: 34px;
         height: 34px;
     }
-    
-    .table-ikan th:nth-child(1) { width: 32%; }
-    .table-ikan th:nth-child(2) { width: 16%; }
-    .table-ikan th:nth-child(3) { width: 18%; }
-    .table-ikan th:nth-child(4) { width: 20%; }
-    .table-ikan th:nth-child(5) { width: 14%; }
-    
-    /* Layout grid 2 kolom untuk tablet */
-    .row.g-3 {
-        --bs-gutter-y: 15px;
+
+    .table-ikan th:nth-child(1),
+    .table-ikan td:nth-child(1) {
+        width: 32%;
+        min-width: 70px;
     }
-    
+
+    .table-ikan th:nth-child(2),
+    .table-ikan td:nth-child(2) {
+        width: 16%;
+        min-width: 45px;
+    }
+
+    .table-ikan th:nth-child(3),
+    .table-ikan td:nth-child(3) {
+        width: 18%;
+        min-width: 55px;
+    }
+
+    .table-ikan th:nth-child(4),
+    .table-ikan td:nth-child(4) {
+        width: 20%;
+        min-width: 60px;
+    }
+
+    .table-ikan th:nth-child(5),
+    .table-ikan td:nth-child(5) {
+        width: 14%;
+        min-width: 30px;
+    }
+
     .batch-item {
         padding: 14px;
     }
-    
+
     .batch-item .form-label {
         font-size: 12px;
     }
-    
+
     .nav-tabs .nav-link {
         padding: 10px 20px;
         font-size: 14px;
     }
+
+    .row.g-3 {
+        --bs-gutter-y: 15px;
+    }
 }
 
-/* ===== HP (LANDSCAPE) ===== */
+/* ============================================================
+   SECTION 21: RESPONSIVE - HP LANDSCAPE (max-width: 768px)
+   ============================================================ */
+
 @media (max-width: 768px) and (orientation: landscape) {
     body {
         padding: 12px;
         font-size: 14px;
     }
-    
+
     .company-header {
         padding: 15px 20px;
         flex-direction: row;
         gap: 15px;
     }
-    
+
     .company-logo {
         width: 55px;
         height: 55px;
     }
-    
+
     .company-text h1 {
         font-size: 18px;
     }
-    
+
     .company-text p {
         font-size: 12px;
     }
-    
+
     .card-body {
         padding: 14px;
     }
-    
+
     .table-ikan {
         font-size: 12px;
     }
-    
-    .table-ikan th {
+
+    .table-ikan thead th {
         font-size: 10px;
         padding: 5px 4px;
     }
-    
-    .table-ikan td {
+
+    .table-ikan tbody td {
         padding: 3px 3px;
     }
-    
+
     .table-ikan .form-select,
     .table-ikan .form-control {
         font-size: 11px;
@@ -988,77 +1208,106 @@ body {
         min-height: 26px;
         height: 26px;
     }
-    
-    .table-ikan th:nth-child(1) { width: 30%; }
-    .table-ikan th:nth-child(2) { width: 16%; }
-    .table-ikan th:nth-child(3) { width: 18%; }
-    .table-ikan th:nth-child(4) { width: 20%; }
-    .table-ikan th:nth-child(5) { width: 16%; }
-    
+
+    .table-ikan th:nth-child(1),
+    .table-ikan td:nth-child(1) {
+        width: 30%;
+        min-width: 60px;
+    }
+
+    .table-ikan th:nth-child(2),
+    .table-ikan td:nth-child(2) {
+        width: 16%;
+        min-width: 40px;
+    }
+
+    .table-ikan th:nth-child(3),
+    .table-ikan td:nth-child(3) {
+        width: 18%;
+        min-width: 50px;
+    }
+
+    .table-ikan th:nth-child(4),
+    .table-ikan td:nth-child(4) {
+        width: 20%;
+        min-width: 55px;
+    }
+
+    .table-ikan th:nth-child(5),
+    .table-ikan td:nth-child(5) {
+        width: 16%;
+        min-width: 28px;
+    }
+
     .batch-item {
         padding: 10px;
     }
-    
+
     .batch-item .form-label {
         font-size: 10px;
     }
-    
+
     .btn {
         font-size: 12px !important;
         padding: 6px 14px !important;
         min-height: 34px !important;
     }
-    
+
     .nav-tabs .nav-link {
         padding: 6px 12px;
         font-size: 12px;
     }
 }
 
-/* ===== HP (PORTRAIT) - YANG SUDAH ADA SEBELUMNYA ===== */
+/* ============================================================
+   SECTION 22: RESPONSIVE - HP PORTRAIT (max-width: 768px)
+   ============================================================ */
+
 @media (max-width: 768px) and (orientation: portrait) {
     body {
         padding: 10px;
         font-size: 13px;
     }
-    
+
     .company-header {
         flex-direction: column;
         gap: 12px;
         padding: 16px;
     }
-    
+
     .company-logo {
         width: 60px;
         height: 60px;
     }
-    
+
     .company-text h1 {
         font-size: 18px;
     }
-    
+
     .company-text p {
         font-size: 11px;
     }
-    
+
     .card-body {
         padding: 12px;
     }
-    
+
+    /* === TABEL INPUT === */
     .table-ikan {
         font-size: 11px;
+        min-width: 300px;
     }
-    
-    .table-ikan th {
+
+    .table-ikan thead th {
         font-size: 9px;
         padding: 5px 3px;
         white-space: nowrap;
     }
-    
-    .table-ikan td {
+
+    .table-ikan tbody td {
         padding: 3px 2px;
     }
-    
+
     .table-ikan .form-select,
     .table-ikan .form-control {
         font-size: 11px;
@@ -1067,181 +1316,210 @@ body {
         height: 26px;
         border-radius: 4px;
     }
-    
+
     .table-ikan .form-select {
         padding-right: 14px;
         background-size: 10px;
     }
-    
-    .table-ikan th:nth-child(1) { width: 28%; }
-    .table-ikan th:nth-child(2) { width: 16%; }
-    .table-ikan th:nth-child(3) { width: 18%; }
-    .table-ikan th:nth-child(4) { width: 20%; }
-    .table-ikan th:nth-child(5) { width: 18%; }
-    
+
+    .table-ikan th:nth-child(1),
+    .table-ikan td:nth-child(1) {
+        width: 28%;
+        min-width: 55px;
+    }
+
+    .table-ikan th:nth-child(2),
+    .table-ikan td:nth-child(2) {
+        width: 16%;
+        min-width: 35px;
+    }
+
+    .table-ikan th:nth-child(3),
+    .table-ikan td:nth-child(3) {
+        width: 18%;
+        min-width: 45px;
+    }
+
+    .table-ikan th:nth-child(4),
+    .table-ikan td:nth-child(4) {
+        width: 20%;
+        min-width: 50px;
+    }
+
+    .table-ikan th:nth-child(5),
+    .table-ikan td:nth-child(5) {
+        width: 18%;
+        min-width: 25px;
+    }
+
     .table-ikan .btn-danger {
         padding: 2px 4px;
         font-size: 10px;
         min-width: 22px;
         min-height: 22px;
     }
-    
+
     .table-ikan .btn-danger i {
         font-size: 10px;
     }
-    
+
     .table-ikan .input-subtotal-batch {
         font-size: 10px;
     }
-    
+
+    /* === BATCH ITEM === */
     .batch-item {
         padding: 8px !important;
         margin-bottom: 10px !important;
     }
-    
+
     .batch-item .batch-number {
         font-size: 9px !important;
         padding: 1px 8px !important;
         top: -7px !important;
         left: 8px !important;
     }
-    
+
     .batch-item .btn-remove-batch {
         top: 4px !important;
         right: 4px !important;
         padding: 2px 6px !important;
         font-size: 10px !important;
     }
-    
+
     .batch-item .form-label {
         font-size: 10px !important;
         margin-bottom: 2px !important;
     }
-    
+
     .batch-item .form-control,
     .batch-item .form-select {
         font-size: 11px !important;
         padding: 4px 6px !important;
         min-height: 28px !important;
     }
-    
+
     .btn-add-row {
         font-size: 11px !important;
         padding: 4px 10px !important;
     }
-    
+
     .btn-add-row i {
         font-size: 11px !important;
     }
-    
+
     .batch-item .text-end strong {
         font-size: 12px !important;
     }
-    
+
     .batch-item .text-end strong span {
         font-size: 14px !important;
     }
-    
-    /* Select2 di HP portrait */
+
+    /* === SELECT2 === */
     .select2-container--default .select2-selection--single {
         height: 26px !important;
         min-height: 26px !important;
         border-radius: 4px !important;
     }
-    
+
     .select2-container--default .select2-selection--single .select2-selection__rendered {
         line-height: 26px !important;
         font-size: 11px !important;
         padding-left: 4px !important;
     }
-    
+
     .select2-container--default .select2-selection--single .select2-selection__arrow {
         height: 24px !important;
     }
-    
+
     .select2-container--default .select2-selection--single .select2-selection__arrow b {
         border-width: 3px 3px 0 !important;
         margin-top: -1px !important;
     }
-    
+
     .select2-dropdown {
         font-size: 11px !important;
     }
-    
+
     .select2-search__field {
         font-size: 11px !important;
         padding: 3px 6px !important;
     }
-    
-    /* Form di HP */
+
+    /* === FORM === */
     .form-control,
     .form-select {
         font-size: 16px !important;
         padding: 8px 10px !important;
         min-height: 40px !important;
     }
-    
+
     .btn {
         padding: 8px 16px !important;
         font-size: 13px !important;
         min-height: 40px !important;
         min-width: 40px !important;
     }
-    
+
     .row.g-3 {
         --bs-gutter-y: 10px !important;
     }
-    
+
     .nav-tabs .nav-link {
         padding: 6px 12px;
         font-size: 11px;
     }
-    
+
     .total-box h4 {
         font-size: 16px;
     }
-    
+
     .total-box span {
         font-size: 20px;
     }
-    
+
     .batch-actions {
         padding: 10px 14px;
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .batch-summary {
         justify-content: center;
         gap: 8px;
     }
-    
+
     .batch-summary .summary-item {
         font-size: 11px;
         padding: 3px 10px;
     }
 }
 
-/* ===== HP SANGAT KECIL ( < 380px ) ===== */
+/* ============================================================
+   SECTION 23: RESPONSIVE - HP SANGAT KECIL (< 380px)
+   ============================================================ */
+
 @media (max-width: 380px) and (orientation: portrait) {
     body {
         padding: 6px;
         font-size: 12px;
     }
-    
+
     .table-ikan {
         font-size: 10px;
+        min-width: 250px;
     }
-    
-    .table-ikan th {
+
+    .table-ikan thead th {
         font-size: 8px;
         padding: 3px 2px;
     }
-    
-    .table-ikan td {
+
+    .table-ikan tbody td {
         padding: 2px 1px;
     }
-    
+
     .table-ikan .form-select,
     .table-ikan .form-control {
         font-size: 10px;
@@ -1249,89 +1527,121 @@ body {
         min-height: 22px;
         height: 22px;
     }
-    
+
     .table-ikan .form-select {
         padding-right: 10px;
     }
-    
-    .table-ikan th:nth-child(1) { width: 26%; }
-    .table-ikan th:nth-child(2) { width: 14%; }
-    .table-ikan th:nth-child(3) { width: 16%; }
-    .table-ikan th:nth-child(4) { width: 18%; }
-    .table-ikan th:nth-child(5) { width: 26%; }
-    
+
+    .table-ikan th:nth-child(1),
+    .table-ikan td:nth-child(1) {
+        width: 26%;
+        min-width: 45px;
+    }
+
+    .table-ikan th:nth-child(2),
+    .table-ikan td:nth-child(2) {
+        width: 14%;
+        min-width: 30px;
+    }
+
+    .table-ikan th:nth-child(3),
+    .table-ikan td:nth-child(3) {
+        width: 16%;
+        min-width: 38px;
+    }
+
+    .table-ikan th:nth-child(4),
+    .table-ikan td:nth-child(4) {
+        width: 18%;
+        min-width: 42px;
+    }
+
+    .table-ikan th:nth-child(5),
+    .table-ikan td:nth-child(5) {
+        width: 26%;
+        min-width: 20px;
+    }
+
     .table-ikan .btn-danger {
         padding: 1px 3px;
         font-size: 9px;
         min-width: 18px;
         min-height: 18px;
     }
-    
+
     .table-ikan .btn-danger i {
         font-size: 9px;
     }
-    
+
     .table-ikan .input-subtotal-batch {
         font-size: 9px;
     }
-    
+
     .batch-item {
         padding: 6px !important;
     }
-    
+
     .batch-item .form-label {
         font-size: 9px !important;
     }
-    
+
     .batch-item .form-control,
     .batch-item .form-select {
         font-size: 10px !important;
         padding: 2px 4px !important;
         min-height: 24px !important;
     }
-    
+
     .btn-add-row {
         font-size: 10px !important;
         padding: 3px 8px !important;
     }
-    
+
     .form-control,
     .form-select {
         font-size: 14px !important;
         padding: 6px 8px !important;
         min-height: 36px !important;
     }
-    
+
     .btn {
         padding: 6px 12px !important;
         font-size: 12px !important;
         min-height: 36px !important;
     }
+
+    .nav-tabs .nav-link {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
 }
 
-/* ===== TABLET KE ATAS ( > 1024px ) ===== */
+/* ============================================================
+   SECTION 24: RESPONSIVE - DESKTOP (> 1024px)
+   ============================================================ */
+
 @media (min-width: 1025px) {
     body {
         padding: 30px;
     }
-    
+
     .card-body {
         padding: 32px;
     }
-    
+
     .table-ikan {
         font-size: 14px;
     }
-    
-    .table-ikan th {
+
+    .table-ikan thead th {
         font-size: 13px;
         padding: 12px 14px;
     }
-    
-    .table-ikan td {
+
+    .table-ikan tbody td {
         padding: 10px 12px;
     }
-    
+
     .table-ikan .form-select,
     .table-ikan .form-control {
         font-size: 14px;
@@ -1339,168 +1649,404 @@ body {
         min-height: 40px;
         height: 40px;
     }
-    
-    .table-ikan th:nth-child(1) { width: 35%; }
-    .table-ikan th:nth-child(2) { width: 15%; }
-    .table-ikan th:nth-child(3) { width: 20%; }
-    .table-ikan th:nth-child(4) { width: 20%; }
-    .table-ikan th:nth-child(5) { width: 10%; }
+
+    .table-ikan th:nth-child(1),
+    .table-ikan td:nth-child(1) {
+        width: 35%;
+        min-width: 120px;
+    }
+
+    .table-ikan th:nth-child(2),
+    .table-ikan td:nth-child(2) {
+        width: 15%;
+        min-width: 70px;
+    }
+
+    .table-ikan th:nth-child(3),
+    .table-ikan td:nth-child(3) {
+        width: 20%;
+        min-width: 90px;
+    }
+
+    .table-ikan th:nth-child(4),
+    .table-ikan td:nth-child(4) {
+        width: 20%;
+        min-width: 90px;
+    }
+
+    .table-ikan th:nth-child(5),
+    .table-ikan td:nth-child(5) {
+        width: 10%;
+        min-width: 50px;
+    }
 }
 
-/* ===== PRINT ===== */
+/* ============================================================
+   SECTION 25: PRINT STYLES
+   ============================================================ */
+
 @media print {
-    .no-print, .btn, .filter-section, .company-header, .connection-status, .nav-tabs {
+    .no-print {
         display: none !important;
     }
+
+    .btn,
+    .filter-section,
+    .company-header,
+    .connection-status,
+    .nav-tabs,
+    .batch-actions,
+    .btn-add-row,
+    .btn-add-batch,
+    .btn-remove-batch,
+    .btn-remove-item-batch {
+        display: none !important;
+    }
+
     body {
         padding: 0;
         margin: 0;
         background: white;
         font-size: 12px;
     }
+
     .card {
         box-shadow: none !important;
         transform: none !important;
         border: 1px solid #ddd !important;
+        page-break-inside: avoid;
     }
+
     .card-header {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        background: #2c7da0 !important;
+        background: var(--primary) !important;
         color: white !important;
     }
-    .table-ikan th {
+
+    .table-ikan thead th {
         background: #e9ecef !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
-}
 
-/* ===== ORIENTATION DETECTION ===== */
-@media (orientation: landscape) {
-    /* Style khusus landscape */
-    .company-header {
-        flex-direction: row;
+    .rekap-table thead th {
+        background: var(--primary) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .batch-item {
+        border: 1px solid #ddd;
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+
+    .total-box {
+        background: #f8f9fa !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 }
 
-@media (orientation: portrait) {
-    /* Style khusus portrait */
-    .company-header {
-        flex-direction: column;
-    }
-}
+/* ============================================================
+   SECTION 26: DARK MODE SUPPORT
+   ============================================================ */
 
-/* ===== HIGH DPI SCREEN (RETINA) ===== */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    /* Untuk layar retina */
-    .company-logo {
-        image-rendering: auto;
-    }
-}
-
-/* ===== DARK MODE SUPPORT ===== */
 @media (prefers-color-scheme: dark) {
     body {
-        background: #1a1a2e;
+        background: var(--bg-dark);
     }
-    
+
     .card {
-        background: #16213e;
+        background: var(--bg-card-dark);
+        border-color: var(--border-dark);
     }
-    
+
     .card-body {
-        background: #16213e;
+        background: var(--bg-card-dark);
     }
-    
+
+    .card-header {
+        background: var(--primary-gradient);
+    }
+
     .form-control,
     .form-select {
         background: #0f3460;
         color: #e0e0e0;
-        border-color: #1a1a2e;
+        border-color: var(--border-dark);
     }
-    
+
     .form-control:focus,
     .form-select:focus {
         background: #1a1a2e;
         color: white;
+        border-color: var(--primary-light);
     }
-    
-    .table-ikan td {
-        background: #0f3460;
+
+    .form-control::placeholder {
+        color: #888;
+    }
+
+    .form-label {
         color: #e0e0e0;
     }
-    
-    .table-ikan th {
+
+    .table-ikan tbody td {
+        background: #0f3460;
+        color: #e0e0e0;
+        border-color: var(--border-dark);
+    }
+
+    .table-ikan thead th {
         background: #1a1a2e;
         color: white;
+        border-color: var(--border-dark);
     }
-    
+
+    .table-ikan .input-subtotal-batch {
+        background: #1a1a2e !important;
+        color: var(--primary-light);
+    }
+
     .batch-item {
         background: #0f3460;
-        border-color: #1a1a2e;
+        border-color: var(--border-dark);
     }
-    
+
     .batch-item .form-label {
         color: #e0e0e0;
     }
-    
+
+    .batch-item .batch-number {
+        background: var(--primary);
+    }
+
     .total-box {
         background: #1a1a2e;
     }
-    
+
     .total-box h4 {
         color: #e0e0e0;
     }
-    
+
+    .total-box span {
+        color: var(--primary-light);
+    }
+
     .company-header {
         background: #0f3460;
+        border-color: var(--primary);
     }
-    
+
     .company-text h1 {
         color: white;
     }
-    
+
     .company-text p {
         color: #aaa;
     }
-    
+
     .nav-tabs .nav-link {
         background: #0f3460;
         color: #aaa;
     }
-    
-    .nav-tabs .nav-link.active {
-        background: #2c7da0;
+
+    .nav-tabs .nav-link:hover {
+        background: #1a1a2e;
         color: white;
     }
-    
+
+    .nav-tabs .nav-link.active {
+        background: var(--primary-gradient);
+        color: white;
+    }
+
     .filter-section {
         background: #0f3460;
     }
-    
+
     .filter-section label {
         color: #e0e0e0;
     }
+
+    .filter-section .form-control,
+    .filter-section .form-select {
+        background: #1a1a2e;
+        color: #e0e0e0;
+        border-color: var(--border-dark);
+    }
+
+    .batch-actions {
+        background: #0f3460;
+    }
+
+    .batch-summary .summary-item {
+        background: #1a1a2e;
+        color: #e0e0e0;
+    }
+
+    .batch-summary .summary-item strong {
+        color: var(--primary-light);
+    }
+
+    .table-container {
+        background: #0f3460;
+    }
+
+    .rekap-table tbody td {
+        background: #0f3460;
+        color: #e0e0e0;
+        border-color: var(--border-dark);
+    }
+
+    .rekap-table tbody tr:hover {
+        background-color: rgba(44, 125, 160, 0.15);
+    }
+
+    .rekap-table .grand-total-row {
+        background: #1a1a2e;
+    }
+
+    .bongkaran-header {
+        background: var(--primary);
+    }
+
+    .rekap-ikan-table tbody td {
+        background: #0f3460;
+        color: #e0e0e0;
+        border-color: var(--border-dark);
+    }
+
+    .rekap-ikan-table thead th {
+        background: var(--primary);
+        color: white;
+    }
+
+    .sub-bongkaran-total {
+        background: #1a1a2e;
+    }
+
+    .badge-metode {
+        background: #1a1a2e;
+        color: var(--primary-light);
+    }
+
+    .info-default {
+        background: #1a1a2e;
+        color: var(--primary-light);
+    }
+
+    .auto-fill-hint {
+        background: #1a2e1a;
+        color: #81c784;
+        border-left-color: #4caf50;
+    }
+
+    .debug-info {
+        background: #1a1a2e;
+        color: #888;
+    }
+
+    .select2-container--default .select2-selection--single {
+        background: #0f3460 !important;
+        border-color: var(--border-dark) !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #e0e0e0 !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-color: #888 transparent transparent transparent !important;
+    }
+
+    .select2-dropdown {
+        background: #0f3460 !important;
+        border-color: var(--border-dark) !important;
+    }
+
+    .select2-search__field {
+        background: #1a1a2e !important;
+        color: #e0e0e0 !important;
+        border-color: var(--border-dark) !important;
+    }
+
+    .select2-results__option {
+        color: #e0e0e0 !important;
+    }
+
+    .select2-results__option--highlighted {
+        background: var(--primary) !important;
+        color: white !important;
+    }
+
+    .connection-status.success {
+        background: #1a2e1a;
+        color: #81c784;
+        border-left-color: #4caf50;
+    }
+
+    .connection-status.error {
+        background: #2e1a1a;
+        color: #ef9a9a;
+        border-left-color: var(--danger);
+    }
+
+    .search-box-container {
+        background: #0f3460;
+        border-color: var(--border-dark);
+    }
+
+    .search-box-container .input-group-text {
+        background: #0f3460;
+        color: #e0e0e0;
+        border-color: var(--border-dark);
+    }
+
+    .master-item {
+        border-color: var(--border-dark);
+    }
+
+    .master-item .item-name {
+        color: #e0e0e0;
+    }
+
+    .master-item .item-price {
+        color: var(--primary-light);
+    }
+
+    .table-ikan .btn-danger {
+        background: var(--danger-gradient);
+    }
+
+    .btn-primary {
+        background: var(--primary-gradient);
+    }
+
+    .btn-success {
+        background: var(--success-gradient);
+    }
 }
+
 /* ============================================================
-   📱 PERBAIKAN UNTUK KEYBOARD HP
+   SECTION 27: KEYBOARD & SCROLL ENHANCEMENTS
    ============================================================ */
 
-/* Efek highlight saat input difokus */
+/* Highlight saat input difokus */
 .batch-item:focus-within {
-    border-color: #2c7da0;
+    border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.15);
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
-/* Input yang sedang difokus */
 .input-jumlah-batch:focus,
 .input-harga-batch:focus,
 .input-dp-batch:focus,
 .form-control:focus {
     background-color: #f0f8ff !important;
-    border-color: #2c7da0 !important;
+    border-color: var(--primary) !important;
     box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.2) !important;
 }
 
@@ -1509,39 +2055,70 @@ body {
     z-index: 9999 !important;
 }
 
-/* Scroll smooth untuk semua elemen */
+/* Scroll smooth */
 html {
     scroll-behavior: smooth;
 }
 
-/* Padding bottom untuk keyboard di HP */
+/* Padding bottom untuk keyboard */
 @media (max-width: 768px) {
     body {
         padding-bottom: 80px;
     }
-    
-    /* Tambahan space di bawah form */
+
     .batch-actions {
         margin-bottom: 30px;
     }
-    
-    /* Card body lebih ringan */
+
     .card-body {
         padding-bottom: 30px;
     }
 }
 
-/* Untuk iOS agar tidak zoom otomatis */
-input, select, textarea {
+/* iOS font size fix */
+input,
+select,
+textarea {
     font-size: 16px !important;
 }
 
-/* Animasi highlight */
+/* Highlight animation */
 @keyframes highlightPulse {
-    0% { background-color: #e8f4fd; }
-    100% { background-color: transparent; }
+    0% {
+        background-color: #e8f4fd;
+    }
+    100% {
+        background-color: transparent;
+    }
 }
 
 .batch-item.highlight {
     animation: highlightPulse 0.8s ease;
 }
+
+/* ============================================================
+   SECTION 28: SCROLLBAR STYLING
+   ============================================================ */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f0f2f5;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* ============================================================
+   END OF STYLE SHEET
+   ============================================================ */
