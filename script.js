@@ -208,14 +208,13 @@
         updateBatchSummary();
     }
 
-    // ==================== RENDER BATCH ITEM HTML ====================
     function renderBatchItemHTML(item) {
         var html = '<div class="batch-item" id="' + item.id + '">';
         html += '<span class="batch-number">#' + (batchItems.indexOf(item) + 1) + '</span>';
         html += '<button type="button" class="btn btn-sm btn-danger btn-remove-batch" onclick="window.removeBatch(\'' + item.id + '\')"><i class="fas fa-times"></i></button>';
         
         // ROW PERTAMA: Pembeli, DP, Metode
-        html += '<div class="row mb-2">';
+        html += '<div class="row mb-3">';
         html += '<div class="col-md-5">';
         html += '<label class="form-label"><i class="fas fa-user"></i> Pembeli</label>';
         html += '<select class="form-select select-pembeli-batch" data-batch="' + item.id + '" style="width:100%;" id="pembeli-select-' + item.id + '">';
@@ -250,30 +249,23 @@
         html += '<div class="auto-fill-hint">💡 Isi otomatis dari master bongkaran</div>';
         html += '</div></div>';
         
-        // ===== TABLE ITEMS =====
+        // TABLE ITEMS
         html += '<div class="table-container"><div class="table-responsive">';
-        html += '<table class="table-ikan">';
-        html += '<thead><tr>';
-        html += '<th>Jenis Ikan</th>';
-        html += '<th>Kg</th>';
-        html += '<th>Harga</th>';
-        html += '<th>Subtotal</th>';
-        html += '<th>Aksi</th>';
-        html += '</tr></thead>';
+        html += '<table class="table-ikan" style="width:100%; table-layout:fixed;">';
+        html += '<thead><tr><th style="width:35%">Jenis Ikan</th><th style="width:15%">Jumlah (kg)</th><th style="width:20%">Harga (Rp/kg)</th><th style="width:20%">Subtotal</th><th style="width:10%">Aksi</th></tr></thead>';
         html += '<tbody id="itemsBody-' + item.id + '">';
-        
         for (var i = 0; i < item.items.length; i++) {
             var row = item.items[i];
             html += '<tr id="' + item.id + '-item-' + i + '">';
             html += '<td><select class="form-select select-ikan-batch" data-batch="' + item.id + '" data-row="' + i + '" style="width:100%;">';
-            html += '<option value="">Pilih</option>';
+            html += '<option value="">Pilih jenis ikan</option>';
             if (masterData.ikan && masterData.ikan.length) {
                 for (var j = 0; j < masterData.ikan.length; j++) {
                     var ikan = masterData.ikan[j];
                     var namaIkan = typeof ikan === 'object' ? (ikan.nama || ikan) : ikan;
                     var hargaDefault = typeof ikan === 'object' ? (ikan.hargaDefault || ikan.harga || 0) : 0;
                     var selected = (namaIkan === row.jenis) ? 'selected' : '';
-                    html += '<option value="' + namaIkan + '" data-harga="' + hargaDefault + '" ' + selected + '>' + namaIkan + '</option>';
+                    html += '<option value="' + namaIkan + '" data-harga="' + hargaDefault + '" ' + selected + '>' + namaIkan + (hargaDefault > 0 ? ' (Rp ' + hargaDefault.toLocaleString() + ')' : '') + '</option>';
                 }
             }
             html += '</select></td>';
@@ -283,7 +275,6 @@
             html += '<td class="text-center"><button type="button" class="btn btn-danger btn-sm btn-remove-item-batch" data-batch="' + item.id + '" data-row="' + i + '"><i class="fas fa-trash-alt"></i></button></td>';
             html += '</tr>';
         }
-        
         html += '</tbody></table></div></div>';
         html += '<button type="button" class="btn-add-row" onclick="window.addItemToBatch(\'' + item.id + '\')"><i class="fas fa-plus me-2"></i> Tambah Ikan</button>';
         html += '<div class="text-end mt-2"><strong>Subtotal Transaksi: <span id="subtotal-' + item.id + '" style="color:#2c7da0;font-size:18px;">' + formatRupiah(item.total) + '</span></strong></div>';
@@ -1169,196 +1160,5 @@
         loadAllData();
         $('#tanggal').trigger('change');
     });
-
-    // ============================================================
-    // 📱 SCROLL OTOMATIS KE INPUT YANG SEDANG DIFOKUS (UNTUK HP)
-    // ============================================================
-
-    (function() {
-        "use strict";
-        
-        // ===== VARIABEL =====
-        var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        var keyboardTimeout = null;
-        var lastFocusedElement = null;
-        var isScrolling = false;
-        
-        // ===== CEK APAKAH HP =====
-        if (!isMobile) return;
-        
-        console.log('📱 Mode Mobile aktif - Scroll otomatis diaktifkan');
-        
-        // ===== FUNGSI SCROLL KE ELEMENT =====
-        function scrollToElement(element) {
-            if (!element || isScrolling) return;
-            
-            isScrolling = true;
-            
-            // Tunggu keyboard muncul (150ms untuk Android, 300ms untuk iOS)
-            var delay = isIOS ? 350 : 200;
-            
-            clearTimeout(keyboardTimeout);
-            keyboardTimeout = setTimeout(function() {
-                try {
-                    var rect = element.getBoundingClientRect();
-                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    var windowHeight = window.innerHeight;
-                    
-                    // Posisi target (80px dari atas layar agar terlihat)
-                    var targetY = rect.top + scrollTop - 80;
-                    
-                    // Batasi agar tidak negatif
-                    targetY = Math.max(0, targetY);
-                    
-                    // Scroll smooth
-                    window.scrollTo({
-                        top: targetY,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Highlight element (efek visual)
-                    try {
-                        element.style.transition = 'background-color 0.3s ease, border-color 0.3s ease';
-                        element.style.backgroundColor = '#e8f4fd';
-                        element.style.borderColor = '#2c7da0';
-                        element.style.borderWidth = '2px';
-                        element.style.borderStyle = 'solid';
-                        
-                        setTimeout(function() {
-                            element.style.backgroundColor = '';
-                            element.style.borderColor = '';
-                            element.style.borderWidth = '';
-                            element.style.borderStyle = '';
-                        }, 800);
-                    } catch(e) {
-                        // Abaikan error styling
-                    }
-                    
-                } catch(e) {
-                    // Abaikan error scroll
-                } finally {
-                    isScrolling = false;
-                }
-            }, delay);
-        }
-        
-        // ===== EVENT: FOCUS PADA INPUT =====
-        document.addEventListener('focusin', function(event) {
-            var target = event.target;
-            
-            // Simpan elemen terakhir yang difokus
-            lastFocusedElement = target;
-            
-            // Input text, number, date, select
-            if (target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.tagName === 'TEXTAREA') {
-                // Jangan scroll untuk date picker (biar tetap di tempat)
-                if (target.type === 'date' || target.type === 'time' || target.type === 'datetime-local') {
-                    return;
-                }
-                
-                // Cek apakah di dalam batch item
-                var batchItem = target.closest('.batch-item');
-                if (batchItem) {
-                    scrollToElement(batchItem);
-                } else {
-                    scrollToElement(target);
-                }
-            }
-        });
-        
-        // ===== EVENT: SELECT2 OPEN =====
-        $(document).on('select2:open', function(e) {
-            var target = e.target;
-            
-            // Cari container Select2
-            var select2Container = $(target).closest('.select2-container');
-            if (select2Container.length) {
-                var batchItem = select2Container.closest('.batch-item');
-                if (batchItem.length) {
-                    scrollToElement(batchItem[0]);
-                } else {
-                    scrollToElement(select2Container[0]);
-                }
-            }
-        });
-        
-        // ===== EVENT: INPUT CHANGE (untuk subtotal) =====
-        document.addEventListener('input', function(event) {
-            var target = event.target;
-            
-            // Jika input di dalam batch item
-            if (target.tagName === 'INPUT') {
-                var batchItem = target.closest('.batch-item');
-                if (batchItem && (target.classList.contains('input-jumlah-batch') || target.classList.contains('input-harga-batch'))) {
-                    // Scroll ke batch item agar subtotal terlihat
-                    scrollToElement(batchItem);
-                }
-            }
-        });
-        
-        // ===== EVENT: TOMBOL TAMBAH IKAN =====
-        $(document).on('click', '.btn-add-row', function() {
-            var batchItem = $(this).closest('.batch-item');
-            if (batchItem.length) {
-                setTimeout(function() {
-                    scrollToElement(batchItem[0]);
-                }, 350);
-            }
-        });
-        
-        // ===== EVENT: TOMBOL TAMBAH BATCH =====
-        $('#btnTambahBatch').on('click', function() {
-            setTimeout(function() {
-                var lastBatch = $('#batchContainer .batch-item:last-child');
-                if (lastBatch.length) {
-                    scrollToElement(lastBatch[0]);
-                }
-            }, 450);
-        });
-        
-        // ===== EVENT: RESIZE (KEYBOARD MUNCUL/HILANG) =====
-        var lastWindowHeight = window.innerHeight;
-        var resizeTimeout = null;
-        
-        window.addEventListener('resize', function() {
-            var currentHeight = window.innerHeight;
-            var diff = lastWindowHeight - currentHeight;
-            
-            // Jika keyboard muncul (tinggi layar berkurang > 100px)
-            if (diff > 100) {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(function() {
-                    // Scroll ke elemen yang terakhir difokus
-                    if (lastFocusedElement) {
-                        var batchItem = lastFocusedElement.closest('.batch-item');
-                        if (batchItem) {
-                            scrollToElement(batchItem);
-                        } else {
-                            scrollToElement(lastFocusedElement);
-                        }
-                    }
-                }, 350);
-            }
-            
-            lastWindowHeight = currentHeight;
-        });
-        
-        // ===== EVENT: SCROLL KE INPUT SAAT PAGE LOAD =====
-        setTimeout(function() {
-            var activeElement = document.activeElement;
-            if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'SELECT')) {
-                var batchItem = activeElement.closest('.batch-item');
-                if (batchItem) {
-                    scrollToElement(batchItem);
-                } else {
-                    scrollToElement(activeElement);
-                }
-            }
-        }, 600);
-        
-        console.log('✅ Scroll otomatis untuk HP aktif!');
-        
-    })();
 
 })();
