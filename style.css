@@ -835,3 +835,651 @@ body {
         print-color-adjust: exact;
     }
 }
+/* ============================================================
+   RESPONSIVE DESIGN - HP, TABLET, PC
+   ============================================================ */
+
+/* ===== DEFAULT (DESKTOP/PC) ===== */
+body {
+    font-size: 16px;
+    padding: 20px;
+}
+
+.table-ikan {
+    font-size: 14px;
+}
+
+.table-ikan th {
+    font-size: 13px;
+    padding: 10px 12px;
+}
+
+.table-ikan td {
+    padding: 8px 10px;
+}
+
+.table-ikan .form-select,
+.table-ikan .form-control {
+    font-size: 14px;
+    padding: 6px 10px;
+    min-height: 38px;
+    height: 38px;
+}
+
+/* ===== TABLET (LANDSCAPE & PORTRAIT) ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body {
+        padding: 15px;
+        font-size: 15px;
+    }
+    
+    .company-header {
+        padding: 20px 25px;
+        gap: 20px;
+    }
+    
+    .company-logo {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .company-text h1 {
+        font-size: 24px;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    /* Tabel input di tablet */
+    .table-ikan {
+        font-size: 13px;
+    }
+    
+    .table-ikan th {
+        font-size: 12px;
+        padding: 8px 8px;
+    }
+    
+    .table-ikan td {
+        padding: 6px 6px;
+    }
+    
+    .table-ikan .form-select,
+    .table-ikan .form-control {
+        font-size: 13px;
+        padding: 4px 8px;
+        min-height: 34px;
+        height: 34px;
+    }
+    
+    .table-ikan th:nth-child(1) { width: 32%; }
+    .table-ikan th:nth-child(2) { width: 16%; }
+    .table-ikan th:nth-child(3) { width: 18%; }
+    .table-ikan th:nth-child(4) { width: 20%; }
+    .table-ikan th:nth-child(5) { width: 14%; }
+    
+    /* Layout grid 2 kolom untuk tablet */
+    .row.g-3 {
+        --bs-gutter-y: 15px;
+    }
+    
+    .batch-item {
+        padding: 14px;
+    }
+    
+    .batch-item .form-label {
+        font-size: 12px;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* ===== HP (LANDSCAPE) ===== */
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    .company-header {
+        padding: 15px 20px;
+        flex-direction: row;
+        gap: 15px;
+    }
+    
+    .company-logo {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .company-text h1 {
+        font-size: 18px;
+    }
+    
+    .company-text p {
+        font-size: 12px;
+    }
+    
+    .card-body {
+        padding: 14px;
+    }
+    
+    .table-ikan {
+        font-size: 12px;
+    }
+    
+    .table-ikan th {
+        font-size: 10px;
+        padding: 5px 4px;
+    }
+    
+    .table-ikan td {
+        padding: 3px 3px;
+    }
+    
+    .table-ikan .form-select,
+    .table-ikan .form-control {
+        font-size: 11px;
+        padding: 2px 4px;
+        min-height: 26px;
+        height: 26px;
+    }
+    
+    .table-ikan th:nth-child(1) { width: 30%; }
+    .table-ikan th:nth-child(2) { width: 16%; }
+    .table-ikan th:nth-child(3) { width: 18%; }
+    .table-ikan th:nth-child(4) { width: 20%; }
+    .table-ikan th:nth-child(5) { width: 16%; }
+    
+    .batch-item {
+        padding: 10px;
+    }
+    
+    .batch-item .form-label {
+        font-size: 10px;
+    }
+    
+    .btn {
+        font-size: 12px !important;
+        padding: 6px 14px !important;
+        min-height: 34px !important;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* ===== HP (PORTRAIT) - YANG SUDAH ADA SEBELUMNYA ===== */
+@media (max-width: 768px) and (orientation: portrait) {
+    body {
+        padding: 10px;
+        font-size: 13px;
+    }
+    
+    .company-header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+    
+    .company-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .company-text h1 {
+        font-size: 18px;
+    }
+    
+    .company-text p {
+        font-size: 11px;
+    }
+    
+    .card-body {
+        padding: 12px;
+    }
+    
+    .table-ikan {
+        font-size: 11px;
+    }
+    
+    .table-ikan th {
+        font-size: 9px;
+        padding: 5px 3px;
+        white-space: nowrap;
+    }
+    
+    .table-ikan td {
+        padding: 3px 2px;
+    }
+    
+    .table-ikan .form-select,
+    .table-ikan .form-control {
+        font-size: 11px;
+        padding: 2px 3px;
+        min-height: 26px;
+        height: 26px;
+        border-radius: 4px;
+    }
+    
+    .table-ikan .form-select {
+        padding-right: 14px;
+        background-size: 10px;
+    }
+    
+    .table-ikan th:nth-child(1) { width: 28%; }
+    .table-ikan th:nth-child(2) { width: 16%; }
+    .table-ikan th:nth-child(3) { width: 18%; }
+    .table-ikan th:nth-child(4) { width: 20%; }
+    .table-ikan th:nth-child(5) { width: 18%; }
+    
+    .table-ikan .btn-danger {
+        padding: 2px 4px;
+        font-size: 10px;
+        min-width: 22px;
+        min-height: 22px;
+    }
+    
+    .table-ikan .btn-danger i {
+        font-size: 10px;
+    }
+    
+    .table-ikan .input-subtotal-batch {
+        font-size: 10px;
+    }
+    
+    .batch-item {
+        padding: 8px !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .batch-item .batch-number {
+        font-size: 9px !important;
+        padding: 1px 8px !important;
+        top: -7px !important;
+        left: 8px !important;
+    }
+    
+    .batch-item .btn-remove-batch {
+        top: 4px !important;
+        right: 4px !important;
+        padding: 2px 6px !important;
+        font-size: 10px !important;
+    }
+    
+    .batch-item .form-label {
+        font-size: 10px !important;
+        margin-bottom: 2px !important;
+    }
+    
+    .batch-item .form-control,
+    .batch-item .form-select {
+        font-size: 11px !important;
+        padding: 4px 6px !important;
+        min-height: 28px !important;
+    }
+    
+    .btn-add-row {
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+    }
+    
+    .btn-add-row i {
+        font-size: 11px !important;
+    }
+    
+    .batch-item .text-end strong {
+        font-size: 12px !important;
+    }
+    
+    .batch-item .text-end strong span {
+        font-size: 14px !important;
+    }
+    
+    /* Select2 di HP portrait */
+    .select2-container--default .select2-selection--single {
+        height: 26px !important;
+        min-height: 26px !important;
+        border-radius: 4px !important;
+    }
+    
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 26px !important;
+        font-size: 11px !important;
+        padding-left: 4px !important;
+    }
+    
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 24px !important;
+    }
+    
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-width: 3px 3px 0 !important;
+        margin-top: -1px !important;
+    }
+    
+    .select2-dropdown {
+        font-size: 11px !important;
+    }
+    
+    .select2-search__field {
+        font-size: 11px !important;
+        padding: 3px 6px !important;
+    }
+    
+    /* Form di HP */
+    .form-control,
+    .form-select {
+        font-size: 16px !important;
+        padding: 8px 10px !important;
+        min-height: 40px !important;
+    }
+    
+    .btn {
+        padding: 8px 16px !important;
+        font-size: 13px !important;
+        min-height: 40px !important;
+        min-width: 40px !important;
+    }
+    
+    .row.g-3 {
+        --bs-gutter-y: 10px !important;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .total-box h4 {
+        font-size: 16px;
+    }
+    
+    .total-box span {
+        font-size: 20px;
+    }
+    
+    .batch-actions {
+        padding: 10px 14px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .batch-summary {
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .batch-summary .summary-item {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+}
+
+/* ===== HP SANGAT KECIL ( < 380px ) ===== */
+@media (max-width: 380px) and (orientation: portrait) {
+    body {
+        padding: 6px;
+        font-size: 12px;
+    }
+    
+    .table-ikan {
+        font-size: 10px;
+    }
+    
+    .table-ikan th {
+        font-size: 8px;
+        padding: 3px 2px;
+    }
+    
+    .table-ikan td {
+        padding: 2px 1px;
+    }
+    
+    .table-ikan .form-select,
+    .table-ikan .form-control {
+        font-size: 10px;
+        padding: 1px 2px;
+        min-height: 22px;
+        height: 22px;
+    }
+    
+    .table-ikan .form-select {
+        padding-right: 10px;
+    }
+    
+    .table-ikan th:nth-child(1) { width: 26%; }
+    .table-ikan th:nth-child(2) { width: 14%; }
+    .table-ikan th:nth-child(3) { width: 16%; }
+    .table-ikan th:nth-child(4) { width: 18%; }
+    .table-ikan th:nth-child(5) { width: 26%; }
+    
+    .table-ikan .btn-danger {
+        padding: 1px 3px;
+        font-size: 9px;
+        min-width: 18px;
+        min-height: 18px;
+    }
+    
+    .table-ikan .btn-danger i {
+        font-size: 9px;
+    }
+    
+    .table-ikan .input-subtotal-batch {
+        font-size: 9px;
+    }
+    
+    .batch-item {
+        padding: 6px !important;
+    }
+    
+    .batch-item .form-label {
+        font-size: 9px !important;
+    }
+    
+    .batch-item .form-control,
+    .batch-item .form-select {
+        font-size: 10px !important;
+        padding: 2px 4px !important;
+        min-height: 24px !important;
+    }
+    
+    .btn-add-row {
+        font-size: 10px !important;
+        padding: 3px 8px !important;
+    }
+    
+    .form-control,
+    .form-select {
+        font-size: 14px !important;
+        padding: 6px 8px !important;
+        min-height: 36px !important;
+    }
+    
+    .btn {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        min-height: 36px !important;
+    }
+}
+
+/* ===== TABLET KE ATAS ( > 1024px ) ===== */
+@media (min-width: 1025px) {
+    body {
+        padding: 30px;
+    }
+    
+    .card-body {
+        padding: 32px;
+    }
+    
+    .table-ikan {
+        font-size: 14px;
+    }
+    
+    .table-ikan th {
+        font-size: 13px;
+        padding: 12px 14px;
+    }
+    
+    .table-ikan td {
+        padding: 10px 12px;
+    }
+    
+    .table-ikan .form-select,
+    .table-ikan .form-control {
+        font-size: 14px;
+        padding: 6px 12px;
+        min-height: 40px;
+        height: 40px;
+    }
+    
+    .table-ikan th:nth-child(1) { width: 35%; }
+    .table-ikan th:nth-child(2) { width: 15%; }
+    .table-ikan th:nth-child(3) { width: 20%; }
+    .table-ikan th:nth-child(4) { width: 20%; }
+    .table-ikan th:nth-child(5) { width: 10%; }
+}
+
+/* ===== PRINT ===== */
+@media print {
+    .no-print, .btn, .filter-section, .company-header, .connection-status, .nav-tabs {
+        display: none !important;
+    }
+    body {
+        padding: 0;
+        margin: 0;
+        background: white;
+        font-size: 12px;
+    }
+    .card {
+        box-shadow: none !important;
+        transform: none !important;
+        border: 1px solid #ddd !important;
+    }
+    .card-header {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: #2c7da0 !important;
+        color: white !important;
+    }
+    .table-ikan th {
+        background: #e9ecef !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* ===== ORIENTATION DETECTION ===== */
+@media (orientation: landscape) {
+    /* Style khusus landscape */
+    .company-header {
+        flex-direction: row;
+    }
+}
+
+@media (orientation: portrait) {
+    /* Style khusus portrait */
+    .company-header {
+        flex-direction: column;
+    }
+}
+
+/* ===== HIGH DPI SCREEN (RETINA) ===== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Untuk layar retina */
+    .company-logo {
+        image-rendering: auto;
+    }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1a1a2e;
+    }
+    
+    .card {
+        background: #16213e;
+    }
+    
+    .card-body {
+        background: #16213e;
+    }
+    
+    .form-control,
+    .form-select {
+        background: #0f3460;
+        color: #e0e0e0;
+        border-color: #1a1a2e;
+    }
+    
+    .form-control:focus,
+    .form-select:focus {
+        background: #1a1a2e;
+        color: white;
+    }
+    
+    .table-ikan td {
+        background: #0f3460;
+        color: #e0e0e0;
+    }
+    
+    .table-ikan th {
+        background: #1a1a2e;
+        color: white;
+    }
+    
+    .batch-item {
+        background: #0f3460;
+        border-color: #1a1a2e;
+    }
+    
+    .batch-item .form-label {
+        color: #e0e0e0;
+    }
+    
+    .total-box {
+        background: #1a1a2e;
+    }
+    
+    .total-box h4 {
+        color: #e0e0e0;
+    }
+    
+    .company-header {
+        background: #0f3460;
+    }
+    
+    .company-text h1 {
+        color: white;
+    }
+    
+    .company-text p {
+        color: #aaa;
+    }
+    
+    .nav-tabs .nav-link {
+        background: #0f3460;
+        color: #aaa;
+    }
+    
+    .nav-tabs .nav-link.active {
+        background: #2c7da0;
+        color: white;
+    }
+    
+    .filter-section {
+        background: #0f3460;
+    }
+    
+    .filter-section label {
+        color: #e0e0e0;
+    }
+}
