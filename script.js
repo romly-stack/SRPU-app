@@ -208,79 +208,88 @@
         updateBatchSummary();
     }
 
-    function renderBatchItemHTML(item) {
-        var html = '<div class="batch-item" id="' + item.id + '">';
-        html += '<span class="batch-number">#' + (batchItems.indexOf(item) + 1) + '</span>';
-        html += '<button type="button" class="btn btn-sm btn-danger btn-remove-batch" onclick="window.removeBatch(\'' + item.id + '\')"><i class="fas fa-times"></i></button>';
-        
-        // ROW PERTAMA: Pembeli, DP, Metode
-        html += '<div class="row mb-3">';
-        html += '<div class="col-md-5">';
-        html += '<label class="form-label"><i class="fas fa-user"></i> Pembeli</label>';
-        html += '<select class="form-select select-pembeli-batch" data-batch="' + item.id + '" style="width:100%;" id="pembeli-select-' + item.id + '">';
-        html += '<option value="">Pilih pembeli</option>';
-        if (masterData.pembeli && masterData.pembeli.length) {
-            for (var i = 0; i < masterData.pembeli.length; i++) {
-                var selected = (masterData.pembeli[i] === item.pembeli) ? 'selected' : '';
-                html += '<option value="' + masterData.pembeli[i] + '" ' + selected + '>' + masterData.pembeli[i] + '</option>';
-            }
+    // ==================== RENDER BATCH ITEM HTML ====================
+function renderBatchItemHTML(item) {
+    var html = '<div class="batch-item" id="' + item.id + '">';
+    html += '<span class="batch-number">#' + (batchItems.indexOf(item) + 1) + '</span>';
+    html += '<button type="button" class="btn btn-sm btn-danger btn-remove-batch" onclick="window.removeBatch(\'' + item.id + '\')"><i class="fas fa-times"></i></button>';
+    
+    // ROW PERTAMA: Pembeli, DP, Metode
+    html += '<div class="row mb-2">';
+    html += '<div class="col-md-5">';
+    html += '<label class="form-label"><i class="fas fa-user"></i> Pembeli</label>';
+    html += '<select class="form-select select-pembeli-batch" data-batch="' + item.id + '" style="width:100%;" id="pembeli-select-' + item.id + '">';
+    html += '<option value="">Pilih pembeli</option>';
+    if (masterData.pembeli && masterData.pembeli.length) {
+        for (var i = 0; i < masterData.pembeli.length; i++) {
+            var selected = (masterData.pembeli[i] === item.pembeli) ? 'selected' : '';
+            html += '<option value="' + masterData.pembeli[i] + '" ' + selected + '>' + masterData.pembeli[i] + '</option>';
         }
-        html += '</select></div>';
-        html += '<div class="col-md-3">';
-        html += '<label class="form-label"><i class="fas fa-money-bill-alt"></i> DP</label>';
-        html += '<input type="number" class="form-control input-dp-batch" data-batch="' + item.id + '" value="' + (item.dp || 0) + '" step="1000" placeholder="0">';
-        html += '</div>';
-        html += '<div class="col-md-4">';
-        html += '<label class="form-label"><i class="fas fa-money-bill-wave"></i> Metode</label>';
-        html += '<select class="form-select select-metode-batch" data-batch="' + item.id + '">';
-        if (masterData.metodePembayaran && masterData.metodePembayaran.length) {
-            for (var i = 0; i < masterData.metodePembayaran.length; i++) {
-                var selected = (masterData.metodePembayaran[i] === item.metode) ? 'selected' : '';
-                html += '<option value="' + masterData.metodePembayaran[i] + '" ' + selected + '>' + masterData.metodePembayaran[i] + '</option>';
-            }
-        }
-        html += '</select></div></div>';
-        
-        // ROW KEDUA: Bongkaran
-        html += '<div class="row mb-2">';
-        html += '<div class="col-md-12">';
-        html += '<label class="form-label"><i class="fas fa-boxes"></i> Bongkaran</label>';
-        html += '<input type="text" class="form-control input-bongkaran-batch" data-batch="' + item.id + '" value="' + (item.bongkaran || $('#bongkaranBatchGlobal').val() || '') + '" placeholder="Nama bongkaran..." list="bongkaranListBatch">';
-        html += '<div class="auto-fill-hint">💡 Isi otomatis dari master bongkaran</div>';
-        html += '</div></div>';
-        
-        // TABLE ITEMS
-        html += '<div class="table-container"><div class="table-responsive">';
-        html += '<table class="table-ikan" style="width:100%; table-layout:fixed;">';
-        html += '<thead><tr><th style="width:35%">Jenis Ikan</th><th style="width:15%">Jumlah (kg)</th><th style="width:20%">Harga (Rp/kg)</th><th style="width:20%">Subtotal</th><th style="width:10%">Aksi</th></tr></thead>';
-        html += '<tbody id="itemsBody-' + item.id + '">';
-        for (var i = 0; i < item.items.length; i++) {
-            var row = item.items[i];
-            html += '<tr id="' + item.id + '-item-' + i + '">';
-            html += '<td><select class="form-select select-ikan-batch" data-batch="' + item.id + '" data-row="' + i + '" style="width:100%;">';
-            html += '<option value="">Pilih jenis ikan</option>';
-            if (masterData.ikan && masterData.ikan.length) {
-                for (var j = 0; j < masterData.ikan.length; j++) {
-                    var ikan = masterData.ikan[j];
-                    var namaIkan = typeof ikan === 'object' ? (ikan.nama || ikan) : ikan;
-                    var hargaDefault = typeof ikan === 'object' ? (ikan.hargaDefault || ikan.harga || 0) : 0;
-                    var selected = (namaIkan === row.jenis) ? 'selected' : '';
-                    html += '<option value="' + namaIkan + '" data-harga="' + hargaDefault + '" ' + selected + '>' + namaIkan + (hargaDefault > 0 ? ' (Rp ' + hargaDefault.toLocaleString() + ')' : '') + '</option>';
-                }
-            }
-            html += '</select></td>';
-            html += '<td><input type="number" step="0.001" class="form-control text-end input-jumlah-batch" data-batch="' + item.id + '" data-row="' + i + '" value="' + (row.jumlah || '') + '" placeholder="0" oninput="window.calculateItemSubtotal(\'' + item.id + '\', ' + i + ')"></td>';
-            html += '<td><input type="number" class="form-control text-end input-harga-batch" data-batch="' + item.id + '" data-row="' + i + '" value="' + (row.harga || '') + '" placeholder="0" oninput="window.calculateItemSubtotal(\'' + item.id + '\', ' + i + ')"></td>';
-            html += '<td><input type="text" class="form-control text-end input-subtotal-batch" data-batch="' + item.id + '" data-row="' + i + '" readonly style="background:#e9ecef; font-weight:600; color:#2c7da0;" value="' + formatRupiah(row.subtotal || 0) + '"></td>';
-            html += '<td class="text-center"><button type="button" class="btn btn-danger btn-sm btn-remove-item-batch" data-batch="' + item.id + '" data-row="' + i + '"><i class="fas fa-trash-alt"></i></button></td>';
-            html += '</tr>';
-        }
-        html += '</tbody></table></div></div>';
-        html += '<button type="button" class="btn-add-row" onclick="window.addItemToBatch(\'' + item.id + '\')"><i class="fas fa-plus me-2"></i> Tambah Ikan</button>';
-        html += '<div class="text-end mt-2"><strong>Subtotal Transaksi: <span id="subtotal-' + item.id + '" style="color:#2c7da0;font-size:18px;">' + formatRupiah(item.total) + '</span></strong></div>';
-        html += '</div>';
-        return html;
     }
+    html += '</select></div>';
+    html += '<div class="col-md-3">';
+    html += '<label class="form-label"><i class="fas fa-money-bill-alt"></i> DP</label>';
+    html += '<input type="number" class="form-control input-dp-batch" data-batch="' + item.id + '" value="' + (item.dp || 0) + '" step="1000" placeholder="0">';
+    html += '</div>';
+    html += '<div class="col-md-4">';
+    html += '<label class="form-label"><i class="fas fa-money-bill-wave"></i> Metode</label>';
+    html += '<select class="form-select select-metode-batch" data-batch="' + item.id + '">';
+    if (masterData.metodePembayaran && masterData.metodePembayaran.length) {
+        for (var i = 0; i < masterData.metodePembayaran.length; i++) {
+            var selected = (masterData.metodePembayaran[i] === item.metode) ? 'selected' : '';
+            html += '<option value="' + masterData.metodePembayaran[i] + '" ' + selected + '>' + masterData.metodePembayaran[i] + '</option>';
+        }
+    }
+    html += '</select></div></div>';
+    
+    // ROW KEDUA: Bongkaran
+    html += '<div class="row mb-2">';
+    html += '<div class="col-md-12">';
+    html += '<label class="form-label"><i class="fas fa-boxes"></i> Bongkaran</label>';
+    html += '<input type="text" class="form-control input-bongkaran-batch" data-batch="' + item.id + '" value="' + (item.bongkaran || $('#bongkaranBatchGlobal').val() || '') + '" placeholder="Nama bongkaran..." list="bongkaranListBatch">';
+    html += '<div class="auto-fill-hint">💡 Isi otomatis dari master bongkaran</div>';
+    html += '</div></div>';
+    
+    // ===== TABLE ITEMS (DIPERBAIKI UNTUK HP) =====
+    html += '<div class="table-container"><div class="table-responsive">';
+    html += '<table class="table-ikan">';
+    html += '<thead><tr>';
+    html += '<th>Jenis Ikan</th>';
+    html += '<th>Kg</th>';
+    html += '<th>Harga</th>';
+    html += '<th>Subtotal</th>';
+    html += '<th>Aksi</th>';
+    html += '</tr></thead>';
+    html += '<tbody id="itemsBody-' + item.id + '">';
+    
+    for (var i = 0; i < item.items.length; i++) {
+        var row = item.items[i];
+        html += '<tr id="' + item.id + '-item-' + i + '">';
+        html += '<td><select class="form-select select-ikan-batch" data-batch="' + item.id + '" data-row="' + i + '" style="width:100%;">';
+        html += '<option value="">Pilih</option>';
+        if (masterData.ikan && masterData.ikan.length) {
+            for (var j = 0; j < masterData.ikan.length; j++) {
+                var ikan = masterData.ikan[j];
+                var namaIkan = typeof ikan === 'object' ? (ikan.nama || ikan) : ikan;
+                var hargaDefault = typeof ikan === 'object' ? (ikan.hargaDefault || ikan.harga || 0) : 0;
+                var selected = (namaIkan === row.jenis) ? 'selected' : '';
+                html += '<option value="' + namaIkan + '" data-harga="' + hargaDefault + '" ' + selected + '>' + namaIkan + '</option>';
+            }
+        }
+        html += '</select></td>';
+        html += '<td><input type="number" step="0.001" class="form-control text-end input-jumlah-batch" data-batch="' + item.id + '" data-row="' + i + '" value="' + (row.jumlah || '') + '" placeholder="0" oninput="window.calculateItemSubtotal(\'' + item.id + '\', ' + i + ')"></td>';
+        html += '<td><input type="number" class="form-control text-end input-harga-batch" data-batch="' + item.id + '" data-row="' + i + '" value="' + (row.harga || '') + '" placeholder="0" oninput="window.calculateItemSubtotal(\'' + item.id + '\', ' + i + ')"></td>';
+        html += '<td><input type="text" class="form-control text-end input-subtotal-batch" data-batch="' + item.id + '" data-row="' + i + '" readonly style="background:#e9ecef; font-weight:600; color:#2c7da0;" value="' + formatRupiah(row.subtotal || 0) + '"></td>';
+        html += '<td class="text-center"><button type="button" class="btn btn-danger btn-sm btn-remove-item-batch" data-batch="' + item.id + '" data-row="' + i + '"><i class="fas fa-trash-alt"></i></button></td>';
+        html += '</tr>';
+    }
+    
+    html += '</tbody></table></div></div>';
+    html += '<button type="button" class="btn-add-row" onclick="window.addItemToBatch(\'' + item.id + '\')"><i class="fas fa-plus me-2"></i> Tambah Ikan</button>';
+    html += '<div class="text-end mt-2"><strong>Subtotal Transaksi: <span id="subtotal-' + item.id + '" style="color:#2c7da0;font-size:18px;">' + formatRupiah(item.total) + '</span></strong></div>';
+    html += '</div>';
+    return html;
+}
 
     function setupBatchEvents(batchId) {
         setupStartsWithSearch('.select-pembeli-batch[data-batch="' + batchId + '"]', true);
