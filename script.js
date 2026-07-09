@@ -1160,5 +1160,217 @@
         loadAllData();
         $('#tanggal').trigger('change');
     });
+// ============================================================
+// 📱 SCROLL OTOMATIS KE INPUT YANG SEDANG DIFOKUS (UNTUK HP)
+// ============================================================
 
+(function() {
+    "use strict";
+    
+    // ===== VARIABEL =====
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    var keyboardTimeout = null;
+    var lastFocusedElement = null;
+    
+    // ===== CEK APAKAH HP =====
+    if (!isMobile) return;
+    
+    console.log('📱 Mode Mobile aktif - Scroll otomatis diaktifkan');
+    
+    // ===== FUNGSI SCROLL KE ELEMENT =====
+    function scrollToElement(element) {
+        if (!element) return;
+        
+        // Tunggu keyboard muncul (150ms untuk Android, 300ms untuk iOS)
+        var delay = isIOS ? 350 : 200;
+        
+        clearTimeout(keyboardTimeout);
+        keyboardTimeout = setTimeout(function() {
+            try {
+                var rect = element.getBoundingClientRect();
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                var windowHeight = window.innerHeight;
+                
+                // Posisi target (100px dari atas layar agar terlihat)
+                var targetY = rect.top + scrollTop - 80;
+                
+                // Scroll smooth
+                window.scrollTo({
+                    top: targetY,
+                    behavior: 'smooth'
+                });
+                
+                // Highlight element (efek visual)
+                element.style.transition = 'background-color 0.3s ease';
+                element.style.backgroundColor = '#e8f4fd';
+                setTimeout(function() {
+                    element.style.backgroundColor = '';
+                }, 800);
+                
+                console.log('📱 Scroll ke:', element.tagName, element.id || element.className);
+                
+            } catch(e) {
+                console.log('Scroll error:', e.message);
+            }
+        }, delay);
+    }
+    
+    // ===== SCROLL KE SELECT2 =====
+    function scrollToSelect2(container) {
+        if (!container) return;
+        
+        var delay = isIOS ? 350 : 200;
+        clearTimeout(keyboardTimeout);
+        
+        keyboardTimeout = setTimeout(function() {
+            try {
+                // Cari input search di Select2
+                var searchField = container.querySelector('.select2-search__field');
+                if (searchField) {
+                    var rect = searchField.getBoundingClientRect();
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    var targetY = rect.top + scrollTop - 80;
+                    
+                    window.scrollTo({
+                        top: targetY,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Highlight
+                    container.style.transition = 'border-color 0.3s ease';
+                    container.style.borderColor = '#2c7da0';
+                    container.style.borderWidth = '2px';
+                    setTimeout(function() {
+                        container.style.borderColor = '';
+                        container.style.borderWidth = '';
+                    }, 800);
+                }
+            } catch(e) {
+                console.log('Select2 scroll error:', e.message);
+            }
+        }, delay);
+    }
+    
+    // ===== EVENT: FOCUS PADA INPUT =====
+    document.addEventListener('focusin', function(event) {
+        var target = event.target;
+        
+        // Simpan elemen terakhir yang difokus
+        lastFocusedElement = target;
+        
+        // Input text, number, date, select
+        if (target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.tagName === 'TEXTAREA') {
+            // Jangan scroll untuk date picker (biar tetap di tempat)
+            if (target.type === 'date' || target.type === 'time') {
+                return;
+            }
+            
+            // Cek apakah di dalam batch item
+            var batchItem = target.closest('.batch-item');
+            if (batchItem) {
+                // Scroll ke batch item
+                scrollToElement(batchItem);
+            } else {
+                // Scroll ke input itu sendiri
+                scrollToElement(target);
+            }
+        }
+    });
+    
+    // ===== EVENT: SELECT2 OPEN =====
+    // Tangkap event saat Select2 dibuka
+    $(document).on('select2:open', function(e) {
+        var target = e.target;
+        
+        // Cari container Select2
+        var select2Container = $(target).closest('.select2-container');
+        if (select2Container.length) {
+            var batchItem = select2Container.closest('.batch-item');
+            if (batchItem.length) {
+                // Scroll ke batch item
+                scrollToElement(batchItem[0]);
+            } else {
+                scrollToElement(select2Container[0]);
+            }
+        }
+    });
+    
+    // ===== EVENT: INPUT CHANGE (untuk subtotal) =====
+    document.addEventListener('input', function(event) {
+        var target = event.target;
+        
+        // Jika input di dalam batch item
+        if (target.tagName === 'INPUT') {
+            var batchItem = target.closest('.batch-item');
+            if (batchItem && target.classList.contains('input-jumlah-batch') || target.classList.contains('input-harga-batch')) {
+                // Scroll ke batch item agar subtotal terlihat
+                scrollToElement(batchItem);
+            }
+        }
+    });
+    
+    // ===== EVENT: TOMBOL TAMBAH IKAN =====
+    $(document).on('click', '.btn-add-row', function() {
+        var batchItem = $(this).closest('.batch-item');
+        if (batchItem.length) {
+            // Scroll ke batch item setelah tombol diklik
+            setTimeout(function() {
+                scrollToElement(batchItem[0]);
+            }, 300);
+        }
+    });
+    
+    // ===== EVENT: TOMBOL TAMBAH BATCH =====
+    $('#btnTambahBatch').on('click', function() {
+        setTimeout(function() {
+            var lastBatch = $('#batchContainer .batch-item:last-child');
+            if (lastBatch.length) {
+                scrollToElement(lastBatch[0]);
+            }
+        }, 400);
+    });
+    
+    // ===== EVENT: RESIZE (KEYBOARD MUNCUL/HILANG) =====
+    var lastWindowHeight = window.innerHeight;
+    window.addEventListener('resize', function() {
+        var currentHeight = window.innerHeight;
+        var diff = lastWindowHeight - currentHeight;
+        
+        // Jika keyboard muncul (tinggi layar berkurang)
+        if (diff > 100) {
+            console.log('⌨️ Keyboard muncul');
+            
+            // Scroll ke elemen yang terakhir difokus
+            if (lastFocusedElement) {
+                setTimeout(function() {
+                    var batchItem = lastFocusedElement.closest('.batch-item');
+                    if (batchItem) {
+                        scrollToElement(batchItem);
+                    } else {
+                        scrollToElement(lastFocusedElement);
+                    }
+                }, 300);
+            }
+        }
+        
+        lastWindowHeight = currentHeight;
+    });
+    
+    // ===== EVENT: SCROLL KE INPUT SAAT PAGE LOAD =====
+    // Jika ada input yang sudah difokus saat load
+    setTimeout(function() {
+        var activeElement = document.activeElement;
+        if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'SELECT')) {
+            var batchItem = activeElement.closest('.batch-item');
+            if (batchItem) {
+                scrollToElement(batchItem);
+            } else {
+                scrollToElement(activeElement);
+            }
+        }
+    }, 500);
+    
+    console.log('✅ Scroll otomatis untuk HP aktif!');
+    
 })();
