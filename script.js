@@ -17,7 +17,7 @@
     
     // URL Apps Script di-enkripsi dengan Base64 + Reverse
     // Untuk mengubah: gunakan fungsi encodeUrl() di console browser
-    var _URL_ENCODED = 'L2V4ZWMvU0tmeWNid0JoT3YxZ21VTjJUeFpFSy1jeUFkUk5PRld0U3RmQlU2ckE2RDZlSmNJVGdUNzR1RU5rZk4xSC1MSFBWMTRNNk0vc2NyaXB0Lmdvb2dsZS5jb20vbWFjcm9zL3MvLzovcHR0aA==';
+    var _URL_ENCODED = 'https://script.google.com/macros/s/AKfycbwBhvO1gmUN2TxZEK-cyAdRNOFWtStfBU6rA6D6eJcITYgT74uENkfN1H-LHPV14M6M/exec';
     var _URL_REVERSED = atob(_URL_ENCODED);
     var SCRIPT_URL = _URL_REVERSED.split('').reverse().join('');
     
